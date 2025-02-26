@@ -45,7 +45,7 @@ jobs:
       curr_ref_type: ${{ github.ref_type }}
   manywheel-py3_12-cuda12_8-build:
     uses: ./.github/workflows/_binary-build-linux.yml
-    # needs: get-label-type
+    needs: get-label-type
     with:
       PYTORCH_ROOT: /pytorch
       PACKAGE_TYPE: manywheel
