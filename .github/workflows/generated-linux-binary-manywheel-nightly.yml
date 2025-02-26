@@ -2,7 +2,7 @@
 
 # Template is at:    .github/templates/linux_binary_build_workflow.yml.j2
 # Generation script: .github/scripts/generate_ci_workflows.py
-name: qcog-linux-binary-manywheel
+name: linux-binary-manywheel
 
 
 on:
