@@ -168,7 +168,7 @@ jobs:
         if: inputs.build_environment != 'linux-s390x-binary-manywheel'
         uses: ./.github/actions/chown-workspace
         with:
-          ALPINE_IMAGE: ${{ inputs.ALPINE_IMAGE }}
+          ALPINE_IMAGE: alpine
 
       - name: Clean workspace
         shell: bash
