@@ -72,20 +72,20 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Download Build Artifacts
-      id: download-artifacts
-      uses: actions/download-artifact@v4.1.7
-      with:
-        name: manywheel-py3_12-cuda12_8
-        path: "${{ runner.temp }}/artifacts/"
+        id: download-artifacts
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: manywheel-py3_12-cuda12_8
+          path: "${{ runner.temp }}/artifacts/"
       - name: install gemfury CLI
-      run: |
-        echo "deb [trusted=yes] https://apt.fury.io/cli/ * *" | sudo tee /etc/apt/sources.list.d/fury-cli.list
-        sudo apt-get update
-        sudo apt-get install fury-cli
-      shell: bash
+        run: |
+          echo "deb [trusted=yes] https://apt.fury.io/cli/ * *" | sudo tee /etc/apt/sources.list.d/fury-cli.list
+          sudo apt-get update
+          sudo apt-get install fury-cli
+        shell: bash
       - name: print ls of artifacts
-      run: ls ${{ runner.temp }}/artifacts
-      shell: bash
+        run: ls ${{ runner.temp }}/artifacts
+        shell: bash
       - name: push wheel to gemfury
-      run: fury push "${{ runner.temp }}/artifacts/$(ls ${{ runner.temp }}/artifacts -1)" --api-token ${{ secrets.GEMFURY_FULL_TOKEN }}
-      shell: bash
+        run: fury push "${{ runner.temp }}/artifacts/$(ls ${{ runner.temp }}/artifacts -1)" --api-token ${{ secrets.GEMFURY_FULL_TOKEN }}
+        shell: bash
