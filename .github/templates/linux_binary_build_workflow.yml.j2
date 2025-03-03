@@ -150,6 +150,7 @@ jobs:
   {%- endif %}
 
 {%- if branches == "nightly" %}
+  upload-to-gemfury:
     steps:
       - name: Download Build Artifacts
       id: download-artifacts
