@@ -66,6 +66,8 @@ jobs:
 
 {%- if branches == "nightly" %}
   upload-to-gemfury:
+    needs:
+      - !{{ config["build_name"] }}-build
     runs-on: ubuntu-22.04
     steps:
       - name: Download Build Artifacts
