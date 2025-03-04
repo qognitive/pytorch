@@ -40,6 +40,7 @@ jobs:
       DESIRED_DEVTOOLSET: cxx11-abi
       use_split_build: False
       DESIRED_PYTHON: "3.12"
+      ALPINE_IMAGE: "alpine"
       runner_prefix: "${{ needs.get-label-type.outputs.label-type }}"
       build_name: manywheel-py3_12-cuda12_8
       build_environment: linux-binary-manywheel
@@ -66,6 +67,7 @@ jobs:
       build_environment: linux-binary-manywheel
       runner_prefix: "${{ needs.get-label-type.outputs.label-type }}"
       runs_on: linux.4xlarge.nvidia.gpu
+      ALPINE_IMAGE: "alpine"
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
   upload-to-gemfury:
