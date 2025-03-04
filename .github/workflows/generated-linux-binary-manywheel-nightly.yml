@@ -48,8 +48,6 @@ jobs:
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
   upload-to-gemfury:
-    needs:
-      - manywheel-py3_12-cuda12_8-test
     runs-on: ubuntu-22.04
     steps:
       - name: Download Build Artifacts
