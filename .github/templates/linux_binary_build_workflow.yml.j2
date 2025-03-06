@@ -11,7 +11,9 @@ name: !{{ build_environment }}
 on:
   push:
   workflow_dispatch:
-
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
 env:
   # Needed for conda builds
   {%- if "aarch64" in build_environment %}
@@ -76,14 +78,22 @@ jobs:
         with:
           name: !{{ config["build_name"] }}
           path: "${{ runner.temp }}/artifacts/"
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::885886606610:role/GithubFullS3
+          aws-region: "us-east-1"
+      - name: print ls of artifacts
+        run: ls ${{ runner.temp }}/artifacts
+        shell: bash
+      - name: upload a test file so that we know if it is working before building
+        run: |
+          aws s3 sync "${{ runner.temp }}/artifacts" s3://qognitive-package-store/pytorch/artifacts_test
       - name: install gemfury CLI
         run: |
           echo "deb [trusted=yes] https://apt.fury.io/cli/ * *" | sudo tee /etc/apt/sources.list.d/fury-cli.list
           sudo apt-get update
           sudo apt-get install fury-cli
-        shell: bash
-      - name: print ls of artifacts
-        run: ls ${{ runner.temp }}/artifacts
         shell: bash
       - name: push wheel to gemfury
         run: fury push "${{ runner.temp }}/artifacts/$(ls ${{ runner.temp }}/artifacts -1)" --api-token ${{ secrets.GEMFURY_FULL_TOKEN }}

@@ -28,18 +28,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test-s3-upload:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v3
-      with:
-        role-to-assume: arn:aws:iam::885886606610:role/GithubFullS3
-        aws-region: "us-east-1"
-    - name: upload a test file so that we know if it is working before building
-      run: |
-        touch pytorch_test.txt
-        aws s3 cp pytorch_test.txt s3://qognitive-package-store/pytorch/pytorch_test.txt
   manywheel-py3_12-cuda12_8-build:
     uses: ./.github/workflows/_binary-build-linux.yml
     with:
@@ -77,17 +65,17 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::885886606610:role/GithubFullS3
           aws-region: "us-east-1"
+      - name: print ls of artifacts
+        run: ls ${{ runner.temp }}/artifacts
+        shell: bash
       - name: upload a test file so that we know if it is working before building
         run: |
-          aws s3 sync "${{ runner.temp }}/artifacts/$(ls ${{ runner.temp }}/artifacts -1)" s3://qognitive-package-store/pytorch/artefact_test
+          aws s3 sync "${{ runner.temp }}/artifacts" s3://qognitive-package-store/pytorch/artifacts_test
       - name: install gemfury CLI
         run: |
           echo "deb [trusted=yes] https://apt.fury.io/cli/ * *" | sudo tee /etc/apt/sources.list.d/fury-cli.list
           sudo apt-get update
           sudo apt-get install fury-cli
-        shell: bash
-      - name: print ls of artifacts
-        run: ls ${{ runner.temp }}/artifacts
         shell: bash
       - name: push wheel to gemfury
         run: fury push "${{ runner.temp }}/artifacts/$(ls ${{ runner.temp }}/artifacts -1)" --api-token ${{ secrets.GEMFURY_FULL_TOKEN }}
