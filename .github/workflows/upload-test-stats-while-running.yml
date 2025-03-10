@@ -1,9 +1,9 @@
 name: Upload test stats while running
 
-on:
-  schedule:
-    # Every hour
-    - cron: '0 * * * *'
+# on:
+#   schedule:
+#     # Every hour
+#     - cron: '0 * * * *'
 
 concurrency:
   group: upload-test-stats-while-running
