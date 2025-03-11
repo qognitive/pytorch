@@ -166,6 +166,7 @@ if [[ "$(uname)" != Darwin ]]; then
 
   # Defaults here for **binary** linux builds so they can be changed in one place
   export MAX_JOBS=${MAX_JOBS:-$(( ${NUM_CPUS} > ${MEMORY_LIMIT_MAX_JOBS} ? ${MEMORY_LIMIT_MAX_JOBS} : ${NUM_CPUS} ))}
+  export MAX_JOBS=$NUM_CPUS
 
   cat >>"$envfile" <<EOL
   export MAX_JOBS="${MAX_JOBS}"
