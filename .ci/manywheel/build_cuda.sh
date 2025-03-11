@@ -179,6 +179,10 @@ if [[ $CUDA_VERSION == 12* ]]; then
                 "libcufile_rdma.so.1"
             )
         fi
+        export USE_STATIC_NCCL=0
+        export USE_SYSTEM_NCCL=1
+        export ATEN_STATIC_CUDA=0
+        export USE_CUDA_STATIC_LINK=0
     else
         echo "Using nvidia libs from pypi."
         CUDA_RPATHS=(
