@@ -1,6 +1,7 @@
 name: Upload test stats while running
 
-# on:
+on:
+  workflow_dispatch:
 #   schedule:
 #     # Every hour
 #     - cron: '0 * * * *'
