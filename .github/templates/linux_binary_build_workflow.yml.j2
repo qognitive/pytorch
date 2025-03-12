@@ -88,15 +88,6 @@ jobs:
         shell: bash
       - name: upload a test file so that we know if it is working before building
         run: |
-          aws s3 sync "${{ runner.temp }}/artifacts" s3://qognitive-package-store/pytorch/artifacts_test
-      - name: install gemfury CLI
-        run: |
-          echo "deb [trusted=yes] https://apt.fury.io/cli/ * *" | sudo tee /etc/apt/sources.list.d/fury-cli.list
-          sudo apt-get update
-          sudo apt-get install fury-cli
-        shell: bash
-      - name: push wheel to gemfury
-        run: fury push "${{ runner.temp }}/artifacts/$(ls ${{ runner.temp }}/artifacts -1)" --api-token ${{ secrets.GEMFURY_FULL_TOKEN }}
-        shell: bash
+          aws s3 cp "${{ runner.temp }}/artifacts/*" s3://qcog-public-d980auw/simple/torch/ --acl public-read
 {%- endif %}
 {% endfor %}
