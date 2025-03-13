@@ -74,4 +74,4 @@ jobs:
         shell: bash
       - name: upload our artifact and index.html
         run: |
-          aws s3 cp "${{ runner.temp }}/artifacts/" s3://qcog-public-pypi/torch/ --acl public-read --recursive
+          aws s3 cp "${{ runner.temp }}/artifacts/" s3://qcog-public-pypi/torch/ --recursive
