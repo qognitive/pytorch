@@ -54,7 +54,7 @@ jobs:
       - manywheel-py3_12-cuda12_8-build
     runs-on: ubuntu-22.04
     steps:
-      - id: install-aws-cli, make sure it is the latest version fo rour redeploy
+      - name: install-aws-cli, make sure it is the latest version fo rour redeploy
         uses: unfor19/install-aws-cli-action@v1
       - name: Download Build Artifacts
         id: download-artifacts
