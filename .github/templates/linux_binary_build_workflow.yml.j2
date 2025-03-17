@@ -97,6 +97,6 @@ jobs:
           aws s3 cp "${{ runner.temp }}/artifacts/" s3://qcog-public-pypi/torch/ --recursive
       - name: redeploy our pypi application on amplify
         run: |
-          aws amplify start-deployment --app-id d35q29c96xqpsn --branch-name prod --source-url 's3://qcog-public-pypi/' --source-url-type BUCKET_PREFIX --profile qcog-dev
+          aws amplify start-deployment --app-id d35q29c96xqpsn --branch-name prod --source-url 's3://qcog-public-pypi/' --source-url-type BUCKET_PREFIX
 {%- endif %}
 {% endfor %}
