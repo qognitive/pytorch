@@ -70,7 +70,7 @@ jobs:
   upload-to-qcog-public-pypi:
     needs:
       - !{{ config["build_name"] }}-build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: install-aws-cli, make sure it is the latest version fo rour redeploy
         uses: unfor19/install-aws-cli-action@v1
